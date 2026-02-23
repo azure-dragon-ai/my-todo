@@ -35,7 +35,7 @@
 </template>
 
 <script setup>
-import { Icon } from 'lucide-vue-next'
+import Icon from './Icon.vue'
 
 defineProps({
   subtasks: {

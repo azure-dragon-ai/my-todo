@@ -73,7 +73,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { Icon } from 'lucide-vue-next'
+import Icon from '../components/Icon.vue'
 import { useTodosStore } from '../stores/todos'
 import SearchBar from '../components/SearchBar.vue'
 import FilterPanel from '../components/FilterPanel.vue'

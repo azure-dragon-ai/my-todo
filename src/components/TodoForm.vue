@@ -139,7 +139,7 @@
 
 <script setup>
 import { reactive, computed } from 'vue'
-import { Icon } from 'lucide-vue-next'
+import Icon from './Icon.vue'
 import CategorySelector from './CategorySelector.vue'
 
 const props = defineProps({

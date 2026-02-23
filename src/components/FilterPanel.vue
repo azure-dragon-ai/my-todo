@@ -85,7 +85,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import { Icon } from 'lucide-vue-next'
+import Icon from './Icon.vue'
 import { useCategoriesStore } from '../stores/categories'
 
 const props = defineProps({

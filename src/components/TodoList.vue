@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-import { Icon } from 'lucide-vue-next'
+import Icon from './Icon.vue'
 import TodoItem from './TodoItem.vue'
 
 defineProps({

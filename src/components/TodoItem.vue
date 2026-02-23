@@ -95,7 +95,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import { Icon } from 'lucide-vue-next'
+import Icon from './Icon.vue'
 import PriorityBadge from './PriorityBadge.vue'
 import { useCategoriesStore } from '../stores/categories'
 

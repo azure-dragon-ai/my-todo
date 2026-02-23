@@ -64,7 +64,7 @@
 <script setup>
 import { ref } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
-import { Icon } from 'lucide-vue-next'
+import Icon from './components/Icon.vue'
 
 const route = useRoute()
 const showMobileMenu = ref(false)
