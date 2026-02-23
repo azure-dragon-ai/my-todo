@@ -22,6 +22,7 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import { useCategoriesStore } from '../stores/categories'
 
 const props = defineProps({

@@ -1,7 +1,9 @@
 <template>
   <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
     <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">{{ title }}</h3>
-    <component :is="chartComponent" :options="chartOptions" :data="chartData" class="w-full" :style="{ height: height + 'px' }" />
+    <div class="relative" :style="{ height: height + 'px' }">
+      <component :is="chartComponent" :key="chartKey" :options="chartOptions" :data="chartData" class="w-full" />
+    </div>
   </div>
 </template>
 
@@ -62,18 +64,29 @@ const chartComponent = computed(() => {
   }
 })
 
-const chartOptions = computed(() => ({
+const chartOptions = {
   responsive: true,
   maintainAspectRatio: false,
+  animation: false,
   plugins: {
     legend: {
       position: props.type === 'pie' ? 'bottom' : 'top'
     }
   }
-}))
+}
 
-const chartData = computed(() => ({
-  labels: props.data.labels,
-  datasets: props.data.datasets
-}))
+const chartData = computed(() => {
+  if (!props.data || !props.data.labels || !props.data.datasets) {
+    return { labels: [], datasets: [] }
+  }
+  return {
+    labels: props.data.labels,
+    datasets: props.data.datasets
+  }
+})
+
+const chartKey = computed(() => {
+  const data = chartData.value
+  return `${data.labels?.length || 0}-${data.datasets?.length || 0}-${data.datasets?.[0]?.data?.length || 0}`
+})
 </script>

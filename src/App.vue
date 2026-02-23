@@ -1,7 +1,7 @@
 <template>
-  <div class="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors">
+  <div class="h-screen flex flex-col bg-gray-100 dark:bg-gray-900 transition-colors">
     <!-- Top Navigation -->
-    <nav class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40">
+    <nav class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex-none">
       <div class="max-w-7xl mx-auto px-4">
         <div class="flex items-center justify-between h-16">
           <RouterLink to="/" class="text-xl font-bold text-blue-500">
@@ -55,8 +55,10 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 py-6">
-      <RouterView />
+    <main class="flex-1 overflow-y-auto">
+      <div class="max-w-7xl mx-auto px-4 py-6">
+        <RouterView />
+      </div>
     </main>
   </div>
 </template>

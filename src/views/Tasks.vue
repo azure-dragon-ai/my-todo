@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-4">
+  <div class="space-y-4 max-w-7xl mx-auto">
     <!-- Header -->
     <div class="flex items-center justify-between">
       <h1 class="text-2xl font-bold text-gray-900 dark:text-white">待办事项</h1>
@@ -72,7 +72,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import Icon from '../components/Icon.vue'
 import { useTodosStore } from '../stores/todos'
 import SearchBar from '../components/SearchBar.vue'
@@ -92,15 +92,15 @@ const filterCategory = ref('all')
 const sortBy = ref('createdAt')
 const sortOrder = ref('desc')
 
-// Update store filter
-computed(() => {
+// Sync local filters with store
+watch([searchQuery, filterStatus, filterPriority, filterCategory, sortBy, sortOrder], () => {
   todosStore.filter.search = searchQuery.value
   todosStore.filter.status = filterStatus.value
   todosStore.filter.priority = filterPriority.value
   todosStore.filter.category = filterCategory.value
   todosStore.filter.sortBy = sortBy.value
   todosStore.filter.sortOrder = sortOrder.value
-})
+}, { immediate: true })
 
 const filteredTodos = computed(() => todosStore.filteredTodos)
 

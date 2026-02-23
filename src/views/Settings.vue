@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-6">
+  <div class="max-w-7xl mx-auto space-y-6">
     <h1 class="text-2xl font-bold text-gray-900 dark:text-white">设置</h1>
 
     <!-- Appearance -->

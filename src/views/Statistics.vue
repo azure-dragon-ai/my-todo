@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-6">
+  <div class="max-w-7xl mx-auto space-y-6">
     <h1 class="text-2xl font-bold text-gray-900 dark:text-white">统计</h1>
 
     <!-- Overview Cards -->
@@ -84,43 +84,52 @@ const categoriesStore = useCategoriesStore()
 
 const stats = computed(() => todosStore.stats)
 
-const trendData = computed(() => ({
-  labels: stats.value.last7Days.map(d => {
-    const date = new Date(d.date)
-    return `${date.getMonth() + 1}/${date.getDate()}`
-  }),
-  datasets: [{
-    label: '完成任务数',
-    data: stats.value.last7Days.map(d => d.count),
-    borderColor: '#3B82F6',
-    backgroundColor: 'rgba(59, 130, 246, 0.1)',
-    tension: 0.3,
-    fill: true
-  }]
-}))
+const trendData = computed(() => {
+  const last7Days = stats.value.last7Days
+  return {
+    labels: last7Days.map(d => {
+      const date = new Date(d.date)
+      return `${date.getMonth() + 1}/${date.getDate()}`
+    }),
+    datasets: [{
+      label: '完成任务数',
+      data: last7Days.map(d => d.count),
+      borderColor: '#3B82F6',
+      backgroundColor: 'rgba(59, 130, 246, 0.1)',
+      tension: 0.3,
+      fill: true
+    }]
+  }
+})
 
-const priorityData = computed(() => ({
-  labels: ['高优先级', '中优先级', '低优先级', '无优先级'],
-  datasets: [{
-    label: '任务数量',
-    data: [
-      stats.value.byPriority.high,
-      stats.value.byPriority.medium,
-      stats.value.byPriority.low,
-      stats.value.byPriority.none
-    ],
-    backgroundColor: ['#EF4444', '#F59E0B', '#3B82F6', '#6B7280']
-  }]
-}))
+const priorityData = computed(() => {
+  const byPriority = stats.value.byPriority
+  return {
+    labels: ['高优先级', '中优先级', '低优先级', '无优先级'],
+    datasets: [{
+      label: '任务数量',
+      data: [
+        byPriority.high,
+        byPriority.medium,
+        byPriority.low,
+        byPriority.none
+      ],
+      backgroundColor: ['#EF4444', '#F59E0B', '#3B82F6', '#6B7280']
+    }]
+  }
+})
 
-const categoryData = computed(() => ({
-  labels: Object.keys(stats.value.categories).map(id => getCategoryName(id)),
-  datasets: [{
-    label: '任务数量',
-    data: Object.values(stats.value.categories),
-    backgroundColor: Object.keys(stats.value.categories).map(id => getCategoryColor(id))
-  }]
-}))
+const categoryData = computed(() => {
+  const categories = stats.value.categories
+  return {
+    labels: Object.keys(categories).map(id => getCategoryName(id)),
+    datasets: [{
+      label: '任务数量',
+      data: Object.values(categories),
+      backgroundColor: Object.keys(categories).map(id => getCategoryColor(id))
+    }]
+  }
+})
 
 const hasCategories = computed(() => Object.keys(stats.value.categories).length > 0)
 

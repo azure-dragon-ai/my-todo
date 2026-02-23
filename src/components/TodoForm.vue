@@ -138,7 +138,7 @@
 </template>
 
 <script setup>
-import { reactive, computed } from 'vue'
+import { reactive, computed, watch } from 'vue'
 import Icon from './Icon.vue'
 import CategorySelector from './CategorySelector.vue'
 

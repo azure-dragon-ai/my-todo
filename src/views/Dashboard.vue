@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-6">
+  <div class="max-w-7xl mx-auto space-y-6">
     <!-- Welcome -->
     <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl p-6 text-white">
       <h1 class="text-2xl font-bold">欢迎回来！</h1>
@@ -112,18 +112,21 @@ const streak = computed(() => {
   return count
 })
 
-const chartData = computed(() => ({
-  labels: stats.value.last7Days.map(d => {
-    const date = new Date(d.date)
-    return `${date.getMonth() + 1}/${date.getDate()}`
-  }),
-  datasets: [{
-    label: '完成任务数',
-    data: stats.value.last7Days.map(d => d.count),
-    borderColor: '#3B82F6',
-    backgroundColor: 'rgba(59, 130, 246, 0.1)',
-    tension: 0.3,
-    fill: true
-  }]
-}))
+const chartData = computed(() => {
+  const last7Days = stats.value.last7Days
+  return {
+    labels: last7Days.map(d => {
+      const date = new Date(d.date)
+      return `${date.getMonth() + 1}/${date.getDate()}`
+    }),
+    datasets: [{
+      label: '完成任务数',
+      data: last7Days.map(d => d.count),
+      borderColor: '#3B82F6',
+      backgroundColor: 'rgba(59, 130, 246, 0.1)',
+      tension: 0.3,
+      fill: true
+    }]
+  }
+})
 </script>
