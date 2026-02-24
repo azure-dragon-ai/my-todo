@@ -1,4 +1,4 @@
-import { useState, KeyboardEvent } from 'react';
+import { useState, KeyboardEvent, ChangeEvent } from 'react';
 import './TodoInput.css';
 
 interface TodoInputProps {
@@ -15,6 +15,10 @@ export function TodoInput({ onAdd }: TodoInputProps) {
     }
   };
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setText(e.target.value);
+  };
+
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       handleAdd();
@@ -27,7 +31,7 @@ export function TodoInput({ onAdd }: TodoInputProps) {
         <input
           type="text"
           value={text}
-          onChange={(e) => setText(e.target.value)}
+          onChange={handleChange}
           onKeyDown={handleKeyDown}
           placeholder="添加新的待办事项..."
           autoFocus

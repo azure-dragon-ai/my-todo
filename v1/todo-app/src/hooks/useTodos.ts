@@ -1,5 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Todo, FilterType } from '../types/todo';
+
+export interface Todo {
+  id: number;
+  text: string;
+  completed: boolean;
+}
+
+type FilterType = 'all' | 'active' | 'completed';
 
 const STORAGE_KEY = 'todos';
 

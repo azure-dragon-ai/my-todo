@@ -1,5 +1,6 @@
-import { FilterType } from '../types/todo';
 import './FilterBar.css';
+
+type FilterType = 'all' | 'active' | 'completed';
 
 interface FilterBarProps {
   filter: FilterType;
