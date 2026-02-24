@@ -1,4 +1,4 @@
-import { Todo } from '../hooks/useTodos';
+import type { Todo } from '../types';
 import './TodoItem.css';
 
 interface TodoItemProps {

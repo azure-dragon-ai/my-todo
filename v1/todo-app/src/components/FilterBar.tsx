@@ -1,6 +1,5 @@
+import type { FilterType } from '../types';
 import './FilterBar.css';
-
-type FilterType = 'all' | 'active' | 'completed';
 
 interface FilterBarProps {
   filter: FilterType;
