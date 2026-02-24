@@ -1,35 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { TodoInput } from './components/TodoInput';
+import { FilterBar } from './components/FilterBar';
+import { TodoList } from './components/TodoList';
+import { useTodos } from './hooks/useTodos';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const {
+    todos,
+    filter,
+    setFilter,
+    addTodo,
+    toggleTodo,
+    deleteTodo,
+    clearCompleted,
+    activeCount,
+    completedCount
+  } = useTodos();
+
+  const currentDate = new Date().toLocaleDateString('zh-CN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    weekday: 'long'
+  });
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="container">
+      <div className="header">
+        <h1>待办事项</h1>
+        <p>{currentDate}</p>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+
+      <TodoInput onAdd={addTodo} />
+
+      <FilterBar filter={filter} onFilterChange={setFilter} />
+
+      <TodoList
+        todos={todos}
+        onToggle={toggleTodo}
+        onDelete={deleteTodo}
+      />
+
+      <div className="footer">
+        <span>{activeCount} 个进行中，{completedCount} 个已完成</span>
+        <button className="clear-btn" onClick={clearCompleted}>清除已完成</button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;

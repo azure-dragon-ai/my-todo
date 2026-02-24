@@ -1,0 +1,28 @@
+.filters {
+  display: flex;
+  padding: 15px 20px;
+  gap: 10px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.filter-btn {
+  flex: 1;
+  padding: 8px 16px;
+  border: none;
+  background: #f8f9fa;
+  color: #666;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.filter-btn:hover:not(.active) {
+  background: #e9ecef;
+}
