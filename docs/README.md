@@ -5,6 +5,8 @@
 保留所有现有功能，且UI风格保持一致
 给每个待办事项增加一个优先级（高、中、低），并用不同的颜色标记出来
 
+Option + Enter
+
 curl -fsSL https://gitee.com/CoderRouter/scripts/raw/master/install_claude.sh | sed 's/\r$//' | sh
 npm uninstall -g @anthropic-ai/claude-code
 npm install -g @anthropic-ai/claude-code
