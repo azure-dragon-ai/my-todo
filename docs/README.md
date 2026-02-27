@@ -33,7 +33,9 @@ jq -r '.tool_input.file_path' | xargs prettier --write
 创建一个新的文件test.html，里面随便写点HTML
 就行，所有的内容都写在一行里面
 mkdir -p ~/.claude/skills/daily-report
+sudo ln -fs "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" /usr/local/bin/
 code ~/.claude/skills/daily-report
+SKILL.md
 
 claude --dangerously-skip-permissions
 
