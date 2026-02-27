@@ -36,6 +36,7 @@ mkdir -p ~/.claude/skills/daily-report
 sudo ln -fs "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" /usr/local/bin/
 code ~/.claude/skills/daily-report
 SKILL.md
+写一份每日总结
 
 claude --dangerously-skip-permissions
 
