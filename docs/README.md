@@ -26,6 +26,8 @@ claude -c
 把CLAUDE.md的语言改为中文
 /memory
 /hooks
+npm install -g prettier
+npm fund
 Matcher: Write|Edit
 jq -r '.tool_input.file_path' | xargs prettier --write
 创建一个新的文件test.html，里面随便写点HTML
