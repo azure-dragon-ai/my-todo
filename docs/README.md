@@ -12,6 +12,7 @@ claude -c
 /mcp
 修改当前页面，使它与figma稿件保持一致: https://figma.com
 /compact
+/clear
 
 claude --dangerously-skip-permissions
 
