@@ -24,6 +24,8 @@ claude -c
   ⎿  Plan file referenced (~/.claude/plans/glistening-tinkering-parnas.md)
 /init
 把CLAUDE.md的语言改为中文
+/memory
+/hooks
 
 claude --dangerously-skip-permissions
 
