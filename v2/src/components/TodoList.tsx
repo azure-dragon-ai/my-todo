@@ -1,5 +1,6 @@
 import type { Todo } from '../types/todo';
 import { TodoItem } from './TodoItem';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface TodoListProps {
   todos: Todo[];
@@ -9,16 +10,18 @@ interface TodoListProps {
 }
 
 export function TodoList({ todos, filter, onToggle, onDelete }: TodoListProps) {
+  const { t } = useLanguage();
+
   if (todos.length === 0) {
     return (
       <div className="empty-state">
         <div className="empty-state-icon">📋</div>
         <p>
           {filter === 'all'
-            ? '还没有待办事项，添加一个开始吧！'
+            ? t.emptyAll
             : filter === 'pending'
-            ? '没有待完成的事项'
-            : '没有已完成的事项'}
+            ? t.emptyPending
+            : t.emptyCompleted}
         </p>
       </div>
     );

@@ -1,4 +1,5 @@
 import type { FilterType } from '../types/todo';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface FilterBarProps {
   filter: FilterType;
@@ -6,10 +7,12 @@ interface FilterBarProps {
 }
 
 export function FilterBar({ filter, onFilterChange }: FilterBarProps) {
+  const { t } = useLanguage();
+
   const filters: { value: FilterType; label: string }[] = [
-    { value: 'all', label: '全部' },
-    { value: 'pending', label: '待完成' },
-    { value: 'completed', label: '已完成' },
+    { value: 'all', label: t.filterAll },
+    { value: 'pending', label: t.filterPending },
+    { value: 'completed', label: t.filterCompleted },
   ];
 
   return (

@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import type { PriorityType } from '../types/todo';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface TodoInputProps {
   onAdd: (text: string, priority: PriorityType) => void;
 }
 
 export function TodoInput({ onAdd }: TodoInputProps) {
+  const { t } = useLanguage();
   const [text, setText] = useState('');
   const [priority, setPriority] = useState<PriorityType>('medium');
 
@@ -31,7 +33,7 @@ export function TodoInput({ onAdd }: TodoInputProps) {
           value={text}
           onChange={(e) => setText(e.target.value)}
           onKeyPress={handleKeyPress}
-          placeholder="添加新的待办事项..."
+          placeholder={t.inputPlaceholder}
           maxLength={100}
         />
         <select
@@ -39,12 +41,12 @@ export function TodoInput({ onAdd }: TodoInputProps) {
           value={priority}
           onChange={(e) => setPriority(e.target.value as PriorityType)}
         >
-          <option value="high">高</option>
-          <option value="medium">中</option>
-          <option value="low">低</option>
+          <option value="high">{t.priorityHigh}</option>
+          <option value="medium">{t.priorityMedium}</option>
+          <option value="low">{t.priorityLow}</option>
         </select>
         <button type="submit" id="addBtn">
-          添加
+          {t.add}
         </button>
       </form>
     </div>

@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { LanguageProvider } from './contexts/LanguageContext';
 import { useTodos } from './hooks/useTodos';
 import { Header } from './components/Header';
 import { TodoInput } from './components/TodoInput';
@@ -6,7 +7,7 @@ import { FilterBar } from './components/FilterBar';
 import { TodoList } from './components/TodoList';
 import { Footer } from './components/Footer';
 
-function App() {
+function AppContent() {
   const {
     todos,
     stats,
@@ -47,6 +48,14 @@ function App() {
         onClearCompleted={clearCompleted}
       />
     </div>
+  );
+}
+
+function App() {
+  return (
+    <LanguageProvider>
+      <AppContent />
+    </LanguageProvider>
   );
 }
 
