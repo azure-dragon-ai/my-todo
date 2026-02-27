@@ -11,6 +11,7 @@ claude mcp add --transport http figma https://mcp.figma.com/mcp
 claude -c
 /mcp
 修改当前页面，使它与figma稿件保持一致: https://figma.com
+/compact
 
 claude --dangerously-skip-permissions
 
