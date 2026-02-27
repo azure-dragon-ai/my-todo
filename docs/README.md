@@ -38,6 +38,7 @@ sudo ln -fs "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/cod
 code ~/.claude/skills/daily-report
 SKILL.md
 写一份每日总结
+/daily-report 写一份每日总结
 
 claude --dangerously-skip-permissions
 
