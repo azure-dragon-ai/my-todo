@@ -26,6 +26,8 @@ claude -c
 把CLAUDE.md的语言改为中文
 /memory
 /hooks
+Matcher: Write|Edit
+jq -r '.tool_input.file_path' | xargs prettier --write
 
 claude --dangerously-skip-permissions
 
