@@ -4,6 +4,7 @@
 将当前的待办应用重构为使用React + Typescript + Vite的项目
 保留所有现有功能，且UI风格保持一致
 给每个待办事项增加一个优先级（高、中、低），并用不同的颜色标记出来
+这个命令等会儿我自己执行，你确保其它部分都完成了即可
 
 claude --dangerously-skip-permissions
 
