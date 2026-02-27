@@ -28,6 +28,8 @@ claude -c
 /hooks
 Matcher: Write|Edit
 jq -r '.tool_input.file_path' | xargs prettier --write
+创建一个新的文件test.html，里面随便写点HTML
+就行，所有的内容都写在一行里面
 
 claude --dangerously-skip-permissions
 
