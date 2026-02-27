@@ -7,6 +7,9 @@
 这个命令等会儿我自己执行，你确保其它部分都完成了即可
 在页面右上角增加一个切换语言的选项，用户可以选择中文或者英文，默认为中文
 claude mcp add --transport http figma https://mcp.figma.com/mcp
+/resume
+claude -c
+/mcp
 
 claude --dangerously-skip-permissions
 
