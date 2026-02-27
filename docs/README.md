@@ -23,6 +23,7 @@ claude -c
   ⎿  Read src/components/TodoItem.tsx (39 lines)
   ⎿  Plan file referenced (~/.claude/plans/glistening-tinkering-parnas.md)
 /init
+把CLAUDE.md的语言改为中文
 
 claude --dangerously-skip-permissions
 
