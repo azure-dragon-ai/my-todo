@@ -73,6 +73,21 @@ body {
   gap: 10px;
 }
 
+.priority-select {
+  padding: 15px 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 14px;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.priority-select:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
 #todoInput {
   flex: 1;
   padding: 15px 20px;
@@ -197,6 +212,44 @@ body {
   flex: 1;
   font-size: 16px;
   color: #333;
+}
+
+/* Priority badge */
+.priority-badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.priority-badge.priority-high {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.priority-badge.priority-medium {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.priority-badge.priority-low {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+/* Priority border for todo items */
+.priority-high {
+  border-left: 4px solid #dc2626;
+}
+
+.priority-medium {
+  border-left: 4px solid #d97706;
+}
+
+.priority-low {
+  border-left: 4px solid #16a34a;
 }
 
 .delete-btn {
