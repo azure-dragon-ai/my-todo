@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import type { Todo, FilterType } from '../types/todo';
+import type { Todo, FilterType, PriorityType } from '../types/todo';
 
 const STORAGE_KEY = 'todos';
 
@@ -25,7 +25,7 @@ export function useTodos() {
     saveTodos(todos);
   }, [todos]);
 
-  const addTodo = (text: string) => {
+  const addTodo = (text: string, priority: PriorityType = 'medium') => {
     const trimmedText = text.trim();
     if (!trimmedText) return;
 
@@ -34,6 +34,7 @@ export function useTodos() {
       text: trimmedText,
       completed: false,
       createdAt: new Date().toISOString(),
+      priority,
     };
 
     setTodos((prev) => [newTodo, ...prev]);
