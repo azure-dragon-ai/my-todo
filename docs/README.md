@@ -22,6 +22,7 @@ claude -c
   ⎿  Read src/components/Footer.tsx (26 lines)
   ⎿  Read src/components/TodoItem.tsx (39 lines)
   ⎿  Plan file referenced (~/.claude/plans/glistening-tinkering-parnas.md)
+/init
 
 claude --dangerously-skip-permissions
 
