@@ -40,6 +40,7 @@ SKILL.md
 写一份每日总结
 /daily-report 写一份每日总结
 这是一个用于代码审核的SubAgent，在用户要求“代码审核”的时候调用它
+给我做一下代码审核
 
 claude --dangerously-skip-permissions
 
