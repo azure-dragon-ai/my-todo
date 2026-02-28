@@ -43,6 +43,7 @@ SKILL.md
 这是一个用于代码审核的SubAgent，在用户要求“代码审核”的时候调用它
 给我做一下代码审核
 /plugin
+按照frontend-desigin的要求做一个待办软件，使用html实现
 
 claude --dangerously-skip-permissions
 
