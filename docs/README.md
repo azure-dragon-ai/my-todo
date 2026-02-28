@@ -47,6 +47,7 @@ SKILL.md
 
 claude --dangerously-skip-permissions
 
+Esc + Esc
 Ctrl + g
 Option + Enter
 ```
