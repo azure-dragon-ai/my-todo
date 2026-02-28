@@ -119,3 +119,9 @@ codex
 `wire_api = "chat"` is no longer supported.
 How to fix: set `wire_api = "responses"` in your provider config.
 More info: https://github.com/openai/codex/discussions/7782
+
+Model	Context	Output	Input Price	Output Price
+deepseek/deepseek-v3.2	164K	65K	$0.26/1M	$0.38/1M
+moonshotai/kimi-k2.5	131K	8K	$0.45/1M	$2.20/1M
+z-ai/glm-5	131K	16K	$0.30/1M	$2.55/1M
+minimax/minimax-m2.5	1M	1M	$0.30/1M	$1.10/1M
