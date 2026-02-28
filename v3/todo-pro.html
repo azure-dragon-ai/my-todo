@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo Pro - 待办事项</title>
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface-light: #334155;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #334155;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      padding: 40px 20px;
+      color: var(--text);
+    }
+
+    .app-container {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      margin-bottom: 32px;
+    }
+
+    .header h1 {
+      font-size: 36px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+
+    .header .subtitle {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    /* Progress Card */
+    .progress-card {
+      background: linear-gradient(135deg, var(--surface), var(--surface-light));
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .progress-title {
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .progress-percent {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: var(--bg);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), #a855f7);
+      border-radius: 4px;
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 12px;
+      background: var(--bg);
+      border-radius: 12px;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .stat-value.total { color: var(--primary); }
+    .stat-value.completed { color: var(--success); }
+    .stat-value.pending { color: var(--warning); }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Input Section */
+    .input-card {
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 8px;
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+      display: flex;
+      gap: 8px;
+    }
+
+    .input-card input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 14px 16px;
+      color: var(--text);
+      font-size: 15px;
+      outline: none;
+    }
+
+    .input-card input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .btn-add {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-add:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+    }
+
+    /* Filter Tabs */
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      padding: 6px;
+      background: var(--surface);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+    }
+
+    .filter-tab {
+      flex: 1;
+      padding: 10px 16px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .filter-tab:hover {
+      color: var(--text);
+      background: var(--surface-light);
+    }
+
+    .filter-tab.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Todo List */
+    .todo-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .todo-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px;
+      background: var(--surface);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .todo-item:hover {
+      border-color: var(--primary);
+      transform: translateX(4px);
+    }
+
+    .todo-item.completed {
+      opacity: 0.6;
+    }
+
+    .todo-item.completed .todo-text {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    /* Custom Checkbox */
+    .checkbox {
+      width: 24px;
+      height: 24px;
+      min-width: 24px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .checkbox:hover {
+      border-color: var(--primary);
+    }
+
+    .checkbox.checked {
+      background: linear-gradient(135deg, var(--success), #059669);
+      border-color: transparent;
+    }
+
+    .checkbox.checked svg {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .checkbox svg {
+      width: 14px;
+      height: 14px;
+      color: white;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 0.2s ease;
+    }
+
+    .todo-text {
+      flex: 1;
+      font-size: 15px;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .todo-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .delete-btn {
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      opacity: 0;
+    }
+
+    .todo-item:hover .delete-btn {
+      opacity: 1;
+    }
+
+    .delete-btn:hover {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--danger);
+    }
+
+    /* Priority Badge */
+    .priority-badge {
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .priority-high {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--danger);
+    }
+
+    .priority-medium {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--warning);
+    }
+
+    .priority-low {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--success);
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+    }
+
+    .empty-state-icon {
+      font-size: 64px;
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
+
+    .empty-state h3 {
+      font-size: 18px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .empty-state p {
+      font-size: 14px;
+    }
+
+    /* Footer Actions */
+    .footer-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 24px;
+      padding: 20px;
+      background: var(--surface);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+    }
+
+    .footer-text {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .btn-clear {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-clear:hover {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--surface-light);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--border);
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 480px) {
+      body {
+        padding: 20px 12px;
+      }
+
+      .header h1 {
+        font-size: 28px;
+      }
+
+      .stats-grid {
+        gap: 8px;
+      }
+
+      .stat-value {
+        font-size: 22px;
+      }
+
+      .input-card {
+        flex-direction: column;
+      }
+
+      .btn-add {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <div class="header">
+      <h1>✨ Todo Pro</h1>
+      <p class="subtitle" id="currentDate"></p>
+    </div>
+
+    <!-- Progress Card -->
+    <div class="progress-card">
+      <div class="progress-header">
+        <span class="progress-title">今日进度</span>
+        <span class="progress-percent" id="progressPercent">0%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-value total" id="statTotal">0</div>
+          <div class="stat-label">总任务</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value completed" id="statCompleted">0</div>
+          <div class="stat-label">已完成</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value pending" id="statPending">0</div>
+          <div class="stat-label">待完成</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input -->
+    <div class="input-card">
+      <input type="text" id="todoInput" placeholder="添加新任务..." maxlength="150">
+      <button class="btn-add" onclick="addTodo()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M12 5v14M5 12h14"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Filters -->
+    <div class="filter-tabs">
+      <button class="filter-tab active" data-filter="all" onclick="setFilter('all')">全部</button>
+      <button class="filter-tab" data-filter="active" onclick="setFilter('active')">进行中</button>
+      <button class="filter-tab" data-filter="completed" onclick="setFilter('completed')">已完成</button>
+    </div>
+
+    <!-- Todo List -->
+    <ul class="todo-list" id="todoList"></ul>
+
+    <!-- Footer -->
+    <div class="footer-actions">
+      <span class="footer-text" id="itemsLeft">0 个任务待完成</span>
+      <button class="btn-clear" onclick="clearCompleted()">清除已完成</button>
+    </div>
+  </div>
+
+  <script>
+    // State
+    let todos = JSON.parse(localStorage.getItem('todos') || '[]');
+    let currentFilter = 'all';
+
+    // DOM Elements
+    const todoInput = document.getElementById('todoInput');
+    const todoList = document.getElementById('todoList');
+    const currentDate = document.getElementById('currentDate');
+    const progressPercent = document.getElementById('progressPercent');
+    const progressFill = document.getElementById('progressFill');
+    const statTotal = document.getElementById('statTotal');
+    const statCompleted = document.getElementById('statCompleted');
+    const statPending = document.getElementById('statPending');
+    const itemsLeft = document.getElementById('itemsLeft');
+
+    // Initialize
+    function init() {
+      const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+      currentDate.textContent = new Date().toLocaleDateString('zh-CN', options);
+      render();
+    }
+
+    // Save to localStorage
+    function saveTodos() {
+      localStorage.setItem('todos', JSON.stringify(todos));
+      render();
+    }
+
+    // Add Todo
+    function addTodo() {
+      const text = todoInput.value.trim();
+      if (!text) return;
+
+      const todo = {
+        id: Date.now(),
+        text: text,
+        completed: false,
+        priority: 'medium',
+        createdAt: new Date().toISOString()
+      };
+
+      todos.unshift(todo);
+      todoInput.value = '';
+      saveTodos();
+    }
+
+    // Toggle Complete
+    function toggleTodo(id) {
+      todos = todos.map(todo =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      );
+      saveTodos();
+    }
+
+    // Delete Todo
+    function deleteTodo(id) {
+      todos = todos.filter(todo => todo.id !== id);
+      saveTodos();
+    }
+
+    // Set Filter
+    function setFilter(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.filter === filter);
+      });
+      render();
+    }
+
+    // Clear Completed
+    function clearCompleted() {
+      todos = todos.filter(todo => !todo.completed);
+      saveTodos();
+    }
+
+    // Filter Todos
+    function filterTodos() {
+      switch (currentFilter) {
+        case 'active':
+          return todos.filter(todo => !todo.completed);
+        case 'completed':
+          return todos.filter(todo => todo.completed);
+        default:
+          return todos;
+      }
+    }
+
+    // Format Date
+    function formatDate(isoString) {
+      const date = new Date(isoString);
+      const now = new Date();
+      const diff = now - date;
+      const minutes = Math.floor(diff / 60000);
+      const hours = Math.floor(diff / 3600000);
+      const days = Math.floor(diff / 86400000);
+
+      if (minutes < 1) return '刚刚';
+      if (minutes < 60) return `${minutes} 分钟前`;
+      if (hours < 24) return `${hours} 小时前`;
+      if (days < 7) return `${days} 天前`;
+      return date.toLocaleDateString('zh-CN');
+    }
+
+    // Escape HTML
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Render
+    function render() {
+      const filtered = filterTodos();
+      const total = todos.length;
+      const completed = todos.filter(t => t.completed).length;
+      const pending = total - completed;
+      const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+      // Update Stats
+      statTotal.textContent = total;
+      statCompleted.textContent = completed;
+      statPending.textContent = pending;
+      progressPercent.textContent = `${percent}%`;
+      progressFill.style.width = `${percent}%`;
+      itemsLeft.textContent = `${pending} 个任务待完成`;
+
+      // Render List
+      if (filtered.length === 0) {
+        const emptyMessages = {
+          all: { icon: '📝', title: '暂无任务', desc: '添加你的第一个任务吧！' },
+          active: { icon: '🎉', title: '没有进行中的任务', desc: '所有任务都已完成！' },
+          completed: { icon: '💪', title: '还没有完成的任务', desc: '完成任务后会显示在这里！' }
+        };
+        const msg = emptyMessages[currentFilter];
+        todoList.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">${msg.icon}</div>
+            <h3>${msg.title}</h3>
+            <p>${msg.desc}</p>
+          </div>
+        `;
+        return;
+      }
+
+      todoList.innerHTML = filtered.map(todo => `
+        <li class="todo-item ${todo.completed ? 'completed' : ''}" data-id="${todo.id}">
+          <div class="checkbox ${todo.completed ? 'checked' : ''}" onclick="toggleTodo(${todo.id})">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div>
+            <div class="todo-text">${escapeHtml(todo.text)}</div>
+            <div class="todo-meta">${formatDate(todo.createdAt)}</div>
+          </div>
+          <span class="priority-badge priority-${todo.priority}">${todo.priority === 'high' ? '高' : todo.priority === 'medium' ? '中' : '低'}</span>
+          <button class="delete-btn" onclick="deleteTodo(${todo.id})">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+              <line x1="10" y1="11" x2="10" y2="17"></line>
+              <line x1="14" y1="11" x2="14" y2="17"></line>
+            </svg>
+          </button>
+        </li>
+      `).join('');
+    }
+
+    // Enter Key
+    todoInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') addTodo();
+    });
+
+    // Initialize App
+    init();
+  </script>
+</body>
+</html>
