@@ -1,44 +1,4 @@
 ```shell
-nvm use v22.15.0
-
-curl -fsSL https://gitee.com/CoderRouter/scripts/raw/master/install_claude.sh | sed 's/\r$//' | sh
-npm uninstall -g @anthropic-ai/claude-code
-npm install -g @anthropic-ai/claude-code
-curl -fsSL https://gitee.com/CoderRouter/scripts/raw/master/setup_claude_env.sh | sed 's/\r$//' | bash -s -- "你的API_KEY"
-~/.claude/settings.json
-{
-  "env": {
-    "ANTHROPIC_BASE_URL": "https://api.code-relay.com/",
-    "ANTHROPIC_AUTH_TOKEN": "你的API_KEY"
-  }
-}
-claude -v
-npm i -g @openai/codex
-codex
-
-# Claude Code & Codex Environment Variables
-export ANTHROPIC_BASE_URL=https://dashscope.aliyuncs.com/apps/anthropic
-export ANTHROPIC_API_KEY=
-export ANTHROPIC_MODEL=qwen3.5-plus
-# End Claude Code & Codex Environment Variables
-
-export MODELSCOPE_API_KEY=
-
-cat ~/.codex/config.toml
-model = "Qwen/Qwen3-Next-80B-A3B-Instruct"
-model_provider = "modelscope"
-
-[model_providers.modelscope]
-name = "Modelscope"
-base_url = "https://api-inference.modelscope.cn/v1"
-env_key = "MODELSCOPE_API_KEY"
-
-cat ~/.codex/auth.json 
-{
-  "auth_mode": "apikey",
-  "OPENAI_API_KEY": ""
-}
-
 给我做一个待办软件，使用html实现
 !open index.html
 将当前的待办应用重构为使用React + Typescript + Vite的项目
@@ -88,6 +48,49 @@ SKILL.md
 claude --dangerously-skip-permissions
 
 Option + Enter
+```
+
+```shell
+nvm use v22.15.0
+
+curl -fsSL https://gitee.com/CoderRouter/scripts/raw/master/install_claude.sh | sed 's/\r$//' | sh
+npm uninstall -g @anthropic-ai/claude-code
+npm install -g @anthropic-ai/claude-code
+curl -fsSL https://gitee.com/CoderRouter/scripts/raw/master/setup_claude_env.sh | sed 's/\r$//' | bash -s -- "你的API_KEY"
+~/.claude/settings.json
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://api.code-relay.com/",
+    "ANTHROPIC_AUTH_TOKEN": "你的API_KEY"
+  }
+}
+claude -v
+npm i -g @openai/codex
+codex
+
+# Claude Code & Codex Environment Variables
+export ANTHROPIC_BASE_URL=https://dashscope.aliyuncs.com/apps/anthropic
+export ANTHROPIC_API_KEY=
+export ANTHROPIC_MODEL=qwen3.5-plus
+# End Claude Code & Codex Environment Variables
+
+export MODELSCOPE_API_KEY=
+
+cat ~/.codex/config.toml
+model = "Qwen/Qwen3-Next-80B-A3B-Instruct"
+model_provider = "modelscope"
+
+[model_providers.modelscope]
+name = "Modelscope"
+base_url = "https://api-inference.modelscope.cn/v1"
+env_key = "MODELSCOPE_API_KEY"
+
+cat ~/.codex/auth.json 
+{
+  "auth_mode": "apikey",
+  "OPENAI_API_KEY": ""
+}
+
 
 curl -fsSL https://gitee.com/CoderRouter/scripts/raw/master/install_claude.sh | sed 's/\r$//' | sh
 npm uninstall -g @anthropic-ai/claude-code
