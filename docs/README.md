@@ -14,6 +14,21 @@ claude -v
 npm i -g @openai/codex
 codex
 
+# Claude Code & Codex Environment Variables
+export ANTHROPIC_BASE_URL=https://dashscope.aliyuncs.com/apps/anthropic
+export ANTHROPIC_API_KEY=
+export ANTHROPIC_MODEL=qwen3.5-plus
+# End Claude Code & Codex Environment Variables
+
+cat ~/.codex/config 
+model = "Qwen/Qwen3-Next-80B-A3B-Instruct"
+model_provider = "modelscope"
+
+[model_providers.modelscope]
+name = "Modelscope"
+base_url = "https://api-inference.modelscope.cn/v1"
+env_key = "MODELSCOPE_API_KEY"
+
 给我做一个待办软件，使用html实现
 !open index.html
 将当前的待办应用重构为使用React + Typescript + Vite的项目
