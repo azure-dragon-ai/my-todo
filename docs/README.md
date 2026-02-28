@@ -22,6 +22,8 @@ export ANTHROPIC_API_KEY=
 export ANTHROPIC_MODEL=qwen3.5-plus
 # End Claude Code & Codex Environment Variables
 
+export MODELSCOPE_API_KEY=
+
 cat ~/.codex/config.toml
 model = "Qwen/Qwen3-Next-80B-A3B-Instruct"
 model_provider = "modelscope"
@@ -34,7 +36,7 @@ env_key = "MODELSCOPE_API_KEY"
 cat ~/.codex/auth.json 
 {
   "auth_mode": "apikey",
-  "OPENAI_API_KEY": "ms-0ea0647c-bd27-41c2-831a-75015c8ffefe"
+  "OPENAI_API_KEY": ""
 }
 
 给我做一个待办软件，使用html实现

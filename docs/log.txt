@@ -113,3 +113,5 @@ codex
 
   Tip: New Build faster with the Codex App. Run 'codex app' or visit
   https://chatgpt.com/codex?app-landing-page=true
+
+  Missing environment variable
