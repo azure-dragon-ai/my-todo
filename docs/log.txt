@@ -102,3 +102,14 @@ PostToolUse:Write hook error
   - 添加错误边界组件
 
   需要我帮你修复这些问题吗？
+
+codex
+╭────────────────────────────────────────────────────────────────╮
+│ >_ OpenAI Codex (v0.106.0)                                     │
+│                                                                │
+│ model:     Qwen/Qwen3-Next-80B-A3B-Instruct   /model to change │
+│ directory: ~/dev/github/docker-wordpress/aigc/my-todo          │
+╰────────────────────────────────────────────────────────────────╯
+
+  Tip: New Build faster with the Codex App. Run 'codex app' or visit
+  https://chatgpt.com/codex?app-landing-page=true
