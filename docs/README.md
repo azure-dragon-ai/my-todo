@@ -76,8 +76,19 @@ export ANTHROPIC_API_KEY=
 export ANTHROPIC_MODEL=qwen3.5-plus
 # End Claude Code & Codex Environment Variables
 
-export MODELSCOPE_API_KEY=
+#glm
+export GLM_API_KEY=
+cat ~/.codex/config.toml
+model = "GLM-5"
+model_provider = "glm"
 
+[model_providers.glm]
+name = "glm"
+base_url = "https://open.bigmodel.cn/api/paas/v4"
+env_key = "GLM_API_KEY"
+
+# modelscope
+export MODELSCOPE_API_KEY=
 cat ~/.codex/config.toml
 model = "Qwen/Qwen3-Next-80B-A3B-Instruct"
 model_provider = "modelscope"
