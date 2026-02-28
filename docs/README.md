@@ -79,6 +79,7 @@ export ANTHROPIC_MODEL=qwen3.5-plus
 # glm
 # Coding 端点 - https://open.bigmodel.cn/api/coding/paas/v4
 # 而非通用端点 - https://open.bigmodel.cn/api/paas/v4/
+# Codex 应用默认封装了 OpenAI 的专有模型（如 GPT-5.2-Codex 或 GPT-5.3-Codex），不支持替换为 GLM 模型
 export GLM_API_KEY=
 cat ~/.codex/config.toml
 model = "GLM-5"
