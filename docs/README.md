@@ -77,6 +77,8 @@ export ANTHROPIC_MODEL=qwen3.5-plus
 # End Claude Code & Codex Environment Variables
 
 #glm
+#Coding 端点 - https://open.bigmodel.cn/api/coding/paas/v4
+#而非通用端点 - https://open.bigmodel.cn/api/paas/v4/
 export GLM_API_KEY=
 cat ~/.codex/config.toml
 model = "GLM-5"
