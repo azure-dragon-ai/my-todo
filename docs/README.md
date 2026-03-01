@@ -73,8 +73,14 @@ gemini
 export HTTP_PROXY="http://127.0.0.1:8118"
 export HTTPS_PROXY="http://127.0.0.1:8118"
 export GOOGLE_CLOUD_PROJECT=
-export GOOGLE_CLOUD_LOCATION=
-export GOOGLE_API_KEY=
+export GOOGLE_CLOUD_LOCATION=global
+export GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account-key.json
+export GOOGLE_CLOUD_PROJECT=
+export GOOGLE_CLOUD_LOCATION=us-central1
+export GOOGLE_GENAI_USE_VERTEXAI=true
+#export GOOGLE_API_KEY=
+unset GOOGLE_API_KEY
+unset GEMINI_API_KEY
 
 npm i -g @openai/codex
 codex
