@@ -148,3 +148,11 @@ Get started                                                                     
 ✕ [API Error: Could not load the default credentials. Browse to
   https://cloud.google.com/docs/authentication/getting-started for more information.]
 
+[API Error: {"error":{"message":"{\n  \"error\": {\n    \"code\": 401,\n    \"message\": \"API keys are
+  not supported by this API. Expected OAuth2 access token or other authentication credentials that assert a
+  principal. See https://cloud.google.com/docs/authentication\",\n    \"status\": \"UNAUTHENTICATED\",\n
+  \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.ErrorInfo\",\n
+  \"reason\": \"CREDENTIALS_MISSING\",\n        \"domain\": \"googleapis.com\",\n        \"metadata\": {\n
+  \"method\": \"google.cloud.aiplatform.v1beta1.PredictionService.StreamGenerateContent\",\n
+  \"service\": \"aiplatform.googleapis.com\"\n        }\n      }\n    ]\n
+  }\n}\n","code":401,"status":"Unauthorized"}}]

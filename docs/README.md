@@ -70,8 +70,11 @@ claude -v
 
 npm install -g @google/gemini-cli
 gemini
-export GOOGLE_CLOUD_PROJECT
-export GOOGLE_CLOUD_LOCATION
+export HTTP_PROXY="http://127.0.0.1:8118"
+export HTTPS_PROXY="http://127.0.0.1:8118"
+export GOOGLE_CLOUD_PROJECT=
+export GOOGLE_CLOUD_LOCATION=
+export GOOGLE_API_KEY=
 
 npm i -g @openai/codex
 codex
