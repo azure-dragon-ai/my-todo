@@ -69,6 +69,9 @@ curl -fsSL https://gitee.com/CoderRouter/scripts/raw/master/setup_claude_env.sh 
 claude -v
 
 npm install -g @google/gemini-cli
+gemini
+export GOOGLE_CLOUD_PROJECT
+export GOOGLE_CLOUD_LOCATION
 
 npm i -g @openai/codex
 codex
