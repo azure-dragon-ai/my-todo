@@ -1,4 +1,5 @@
 ```shell
+claude
 给我做一个待办软件，使用html实现
 !open index.html
 将当前的待办应用重构为使用React + Typescript + Vite的项目
@@ -53,6 +54,11 @@ Option + Enter
 ```
 
 ```shell
+gemini
+给我做一个待办软件，使用html实现
+```
+
+```shell
 nvm use v22.15.0
 
 curl -fsSL https://gitee.com/CoderRouter/scripts/raw/master/install_claude.sh | sed 's/\r$//' | sh
@@ -70,6 +76,10 @@ claude -v
 
 npm install -g @google/gemini-cli
 gemini
+brew install privoxy
+/usr/local/etc/privoxy/config
+listen-address 0.0.0.0:8118
+forward-socks5 / localhost:1080 .
 export HTTP_PROXY="http://127.0.0.1:8118"
 export HTTPS_PROXY="http://127.0.0.1:8118"
 export GOOGLE_CLOUD_PROJECT=
