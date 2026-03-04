@@ -76,6 +76,7 @@ claude -v
 
 npm install -g @google/gemini-cli
 gemini
+pip install gemini-cli-proxy
 brew install privoxy
 /usr/local/etc/privoxy/config
 listen-address 0.0.0.0:8118
