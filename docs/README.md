@@ -68,6 +68,15 @@ u + enter to show server url
 o + enter to open in browser
 c + enter to clear consoLe
 q + enter to quit
+
+npm run dev --open
+/memory list
+/extensions list
+/skills list
+/hooks panel
+/chat list
+/chat save test
+/chat resume test
 ```
 
 ```shell
