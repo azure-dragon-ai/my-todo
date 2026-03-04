@@ -77,6 +77,8 @@ npm run dev --open
 /chat list
 /chat save test
 /chat resume test
+/mcp list
+/shells
 按照frontend-design的要求做一个待办软件，使用html实现
 ```
 
