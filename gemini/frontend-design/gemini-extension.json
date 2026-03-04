@@ -1,0 +1,12 @@
+{
+  "name": "frontend-design",
+  "version": "1.0.0",
+  "description": "Expert Frontend Designer for UI/UX and component implementation.",
+  "author": "Ankit",
+  "commands": [
+    {
+      "name": "/design",
+      "description": "Generate or improve frontend components and designs."
+    }
+  ]
+}
