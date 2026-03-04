@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的待办事项</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --primary-hover: #45a049;
+            --bg-color: #f4f7f6;
+            --container-bg: #ffffff;
+            --text-color: #333333;
+            --text-muted: #888888;
+            --border-color: #e0e0e0;
+            --delete-color: #f44336;
+            --delete-hover: #d32f2f;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding-top: 5rem;
+        }
+
+        .container {
+            background-color: var(--container-bg);
+            width: 100%;
+            max-width: 500px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .input-group {
+            display: flex;
+            margin-bottom: 1.5rem;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            flex-grow: 1;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--primary-color);
+        }
+
+        button {
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-weight: 500;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        li {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background-color: #f9fafb;
+            margin-bottom: 0.5rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s;
+        }
+
+        li:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin-right: 1rem;
+        }
+
+        .checkbox-container input {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-color);
+        }
+
+        .task-text {
+            flex-grow: 1;
+            font-size: 1rem;
+            transition: color 0.2s, text-decoration 0.2s;
+            word-break: break-all;
+        }
+
+        .completed .task-text {
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+
+        .delete-btn {
+            background-color: transparent;
+            color: var(--text-muted);
+            padding: 0.5rem;
+            font-size: 1.2rem;
+            border-radius: 4px;
+        }
+
+        .delete-btn:hover {
+            background-color: rgba(244, 67, 54, 0.1);
+            color: var(--delete-hover);
+        }
+
+        .empty-state {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 2rem;
+            font-style: italic;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        
+        .filter-btns button {
+            background: none;
+            color: var(--text-muted);
+            padding: 0.2rem 0.5rem;
+            margin: 0 0.2rem;
+            font-size: 0.9rem;
+        }
+        
+        .filter-btns button:hover, .filter-btns button.active {
+            color: var(--primary-color);
+            background: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>我的待办事项</h1>
+        
+        <div class="input-group">
+            <input type="text" id="taskInput" placeholder="添加一个新的待办事项..." onkeypress="handleKeyPress(event)">
+            <button onclick="addTask()">添加</button>
+        </div>
+
+        <ul id="taskList">
+            <!-- 待办事项将在这里动态生成 -->
+        </ul>
+
+        <div id="emptyState" class="empty-state">
+            暂无待办事项，快去添加一个吧！
+        </div>
+
+        <div class="filters">
+            <span id="taskCount">0 个项目</span>
+            <div class="filter-btns">
+                <button class="active" onclick="setFilter('all')" id="filter-all">全部</button>
+                <button onclick="setFilter('active')" id="filter-active">未完成</button>
+                <button onclick="setFilter('completed')" id="filter-completed">已完成</button>
+            </div>
+            <button style="background:none; color:var(--text-muted); padding:0;" onclick="clearCompleted()">清除已完成</button>
+        </div>
+    </div>
+
+    <script>
+        let tasks = [];
+        let currentFilter = 'all';
+
+        // 页面加载时从 localStorage 获取数据
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTasks = localStorage.getItem('my-todos');
+            if (savedTasks) {
+                tasks = JSON.parse(savedTasks);
+            }
+            renderTasks();
+        });
+
+        // 保存数据到 localStorage
+        function saveTasks() {
+            localStorage.setItem('my-todos', JSON.stringify(tasks));
+        }
+
+        // 处理回车键添加
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                addTask();
+            }
+        }
+
+        // 添加新任务
+        function addTask() {
+            const input = document.getElementById('taskInput');
+            const text = input.value.trim();
+            
+            if (text !== '') {
+                const newTask = {
+                    id: Date.now().toString(),
+                    text: text,
+                    completed: false
+                };
+                tasks.push(newTask);
+                input.value = '';
+                saveTasks();
+                renderTasks();
+            }
+        }
+
+        // 切换任务完成状态
+        function toggleTask(id) {
+            tasks = tasks.map(task => {
+                if (task.id === id) {
+                    return { ...task, completed: !task.completed };
+                }
+                return task;
+            });
+            saveTasks();
+            renderTasks();
+        }
+
+        // 删除任务
+        function deleteTask(id) {
+            tasks = tasks.filter(task => task.id !== id);
+            saveTasks();
+            renderTasks();
+        }
+        
+        // 清除所有已完成任务
+        function clearCompleted() {
+            tasks = tasks.filter(task => !task.completed);
+            saveTasks();
+            renderTasks();
+        }
+
+        // 设置过滤条件
+        function setFilter(filter) {
+            currentFilter = filter;
+            
+            // 更新按钮激活状态
+            document.querySelectorAll('.filter-btns button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(`filter-${filter}`).classList.add('active');
+            
+            renderTasks();
+        }
+
+        // 渲染任务列表
+        function renderTasks() {
+            const taskList = document.getElementById('taskList');
+            const emptyState = document.getElementById('emptyState');
+            const taskCount = document.getElementById('taskCount');
+            
+            taskList.innerHTML = '';
+
+            // 根据过滤条件筛选任务
+            let filteredTasks = tasks;
+            if (currentFilter === 'active') {
+                filteredTasks = tasks.filter(task => !task.completed);
+            } else if (currentFilter === 'completed') {
+                filteredTasks = tasks.filter(task => task.completed);
+            }
+
+            if (filteredTasks.length === 0) {
+                emptyState.style.display = 'block';
+            } else {
+                emptyState.style.display = 'none';
+                
+                filteredTasks.forEach(task => {
+                    const li = document.createElement('li');
+                    if (task.completed) {
+                        li.classList.add('completed');
+                    }
+
+                    li.innerHTML = `
+                        <label class="checkbox-container">
+                            <input type="checkbox" ${task.completed ? 'checked' : ''} onchange="toggleTask('${task.id}')">
+                        </label>
+                        <span class="task-text">${escapeHtml(task.text)}</span>
+                        <button class="delete-btn" onclick="deleteTask('${task.id}')" title="删除">✕</button>
+                    `;
+                    taskList.appendChild(li);
+                });
+            }
+
+            // 更新左下角的未完成任务数量统计
+            const activeCount = tasks.filter(task => !task.completed).length;
+            taskCount.innerText = `${activeCount} 个未完成`;
+        }
+
+        // 防止 XSS 攻击的辅助函数
+        function escapeHtml(unsafe) {
+            return unsafe
+                 .replace(/&/g, "&amp;")
+                 .replace(/</g, "&lt;")
+                 .replace(/>/g, "&gt;")
+                 .replace(/"/g, "&quot;")
+                 .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
