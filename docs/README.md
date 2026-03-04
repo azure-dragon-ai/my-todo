@@ -56,6 +56,18 @@ Option + Enter
 ```shell
 gemini
 给我做一个待办软件，使用html实现
+!open index.html
+将当前的待办应用重构为使用React + Typescript + Vite的项目
+保留所有现有功能，且UI风格保持一致
+│   ➜  Local:   http://localhost:5173/                                                                │
+│   ➜  Network: use --host to expose                                                                  │
+│   ➜  press h + enter to show help    
+h + enter to show help
+r + enter to restart the server
+u + enter to show server url
+o + enter to open in browser
+c + enter to clear consoLe
+q + enter to quit
 ```
 
 ```shell
