@@ -72,6 +72,9 @@ q + enter to quit
 npm run dev --open
 /memory list
 /extensions list
+/extensions restart
+cp -r ~/.claude/skills ~/.gemini/
+cp -r ~/.claude/plugins/marketplaces/claude-plugins-official/plugins/frontend-design/skills/frontend-design ~/.gemini/skills
 /skills list
 /hooks panel
 /chat list
@@ -120,6 +123,9 @@ unset GEMINI_API_KEY
 
 npm i -g @openai/codex
 codex
+
+npm install -g opencode
+npm install -g openskills
 
 # Claude Code & Codex Environment Variables
 export ANTHROPIC_BASE_URL=https://dashscope.aliyuncs.com/apps/anthropic
